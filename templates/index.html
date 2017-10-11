@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Wiki Path Finder</title>
+        <script type="text/javascript" src="/static/socket.io.js"></script>
+        <script type="text/javascript" src="/static/core_functionality.js"></script>
+        <link rel="stylesheet" href="/static/styles.css"/>
+    </head>
+
+    <body>
+        <h1>Wiki Path Finder</h1>
+
+        <div id="welcome-message">
+            <p>Welcome to the Wiki Path Finder. This application finds the
+                shortest path between one wikipedia page and another using only
+                internal wikipedia links.
+            </p>
+        </div>
+
+        <div id="form">
+            <label for="start-input">Start Page:</label>
+            <input id="start-input" type="text"/>
+
+            <label for="end-input">End Page:</label>
+            <input id="end-input" type="text"/>
+
+            <a id="search-button" href="#">Find Path!</a>
+        </div>
+    </body>
+</html>
