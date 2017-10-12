@@ -10,13 +10,16 @@ window.onload = function() {
         socket.emit('client connected', {data: 'New client connected!'});
     });
 
-    socket.on('search response', function(data){
+    socket.on('search response', function(data) {
         console.log(data);
     });
 
     function sendSearchRequest() {
         console.log("search button clicked!");
-        socket.emit('search request', {data: 'requesting search'});
+        var start = 'https://en.wikipedia.org/wiki/Breadth-first_search';
+        var end = 'https://en.wikipedia.org/wiki/Abstract_data_type';
+        //var end = 'https://en.wikipedia.org/wiki/Operational_semantics';
+        socket.emit('search request', {data: 'requesting search', start: start, end: end});
     }
 };
 
