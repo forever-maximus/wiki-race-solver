@@ -31,16 +31,21 @@ def find_shortest_path(start, end):
     start_node = WikiPageNode(start)
     wiki_node_queue = deque()
     wiki_node_queue.append(start_node)
+    visited_nodes = set()
 
     while len(wiki_node_queue) != 0:
+        print('<----------------->') # temp
         current_wiki_page = wiki_node_queue.popleft()
+        visited_nodes.add(current_wiki_page.url)
+        print('before GET request - ' + current_wiki_page.url + ' - ' + str(datetime.datetime.now())) # temp
         http_request = requests.get(current_wiki_page.url)
         html_content = BeautifulSoup(http_request.text, 'html.parser')
         linked_wiki_url_list = html_content.find_all('a')
-        print('before inner loop - ' + current_wiki_page.url + ' - ' + str(datetime.datetime.now())) # temp
         for link in linked_wiki_url_list:
             linked_wiki_url = link.get('href')
-            if isinstance(linked_wiki_url, str) and linked_wiki_url.startswith('/wiki/') and ':' not in linked_wiki_url:
+            print(visited_nodes)
+            if isinstance(linked_wiki_url, str) and linked_wiki_url.startswith('/wiki/') \
+                and ':' not in linked_wiki_url and 'https://en.wikipedia.org' + linked_wiki_url not in visited_nodes:
                 linked_wiki_page = WikiPageNode('https://en.wikipedia.org' + linked_wiki_url)
                 linked_wiki_page.parent_node = current_wiki_page
                 wiki_node_queue.append(linked_wiki_page)
